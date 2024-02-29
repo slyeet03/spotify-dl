@@ -2,8 +2,13 @@ from pytube import YouTube
 import os
 import time
 
-# audio download
 def audio(url, output_path):
+	'''
+	Download the audio of youtube link provided
+	Args:
+		url: Youtube link
+		output_path: Path for where the audio will be saved
+	'''
 	try:
 		yt = YouTube(url)
 		# getting the audio stream

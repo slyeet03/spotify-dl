@@ -3,7 +3,7 @@ import yt_download
 import spotify_to_yt_link
 
 def menu():
-	output_path = "C:/Users/chitr/Desktop/yt audio"
+	output_path = "C:/Users/chitr/Desktop/yt audio" 
 	url = input("Enter spotify link of playlist or album: ")
 	queries = spotify_track_fetcher.spotify_query(url)
 	

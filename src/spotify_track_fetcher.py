@@ -13,21 +13,50 @@ SPOTIPY_CLIENT_SECRET = os.environ.get('SPOTIPY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI = "http://localhost:8888/callback"
 
 def authenticate():
+	'''
+	Authenticate the spotify api
+	Returns:
+		sp: Spotify object
+	'''
 	client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET)
 	sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 	return sp
 
 def fetch_tracks_from_playlist(url, sp):
+	'''
+	Extract the playlist info
+	Args:
+		url: Spotify link
+		sp: Spotify object
+	Returns:
+		List of info of each track
+	'''
 	playlist_id = re.search(r'/playlist/(\w+)', url).group(1)
 	results = sp.playlist_tracks(playlist_id)
 	return results['items'] if 'items' in results else []
 
 def fetch_tracks_from_album(album_url, sp):
+	'''
+	Extract the album info
+	Args:
+		url: Spotify link
+		sp: Spotify object
+	Returns:
+		List of info of each track
+	'''
 	album_id = album_url.split('/')[-1].split('?')[0]
 	results = sp.album_tracks(album_id)
 	return results['items'] if 'items' in results else []
 
 def get_tracks(url, sp):
+	'''
+	Extract the track info from playlist/album depending upon the link
+	Args:
+		url: Spotify link
+		sp: Spotify object
+	Returns:
+		List of info of each track
+	'''
 	if re.match(r'.*spotify.com/playlist/.*', url):
 		return fetch_tracks_from_playlist(url, sp)
 	elif re.match(r'.*spotify.com/album/.*', url):
@@ -36,6 +65,13 @@ def get_tracks(url, sp):
 		raise ValueError("Invalid URL. Please enter a valid Spotify playlist or album URL.")
 
 def spotify_query(url):
+	'''
+	Set up a query to search on youtube for the respective spotify link
+	Args:
+		url: Spotify link of playlist/album
+	Returns:
+		queries: list of query to be searched on youtube
+	'''
 	sp = authenticate()
 	queries = []
 	try:

@@ -22,7 +22,7 @@ def authenticate():
 	sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 	return sp
 
-def fetch_tracks_from_playlist(url, sp):
+def fetch_tracks_from_playlist(playlist_url, sp):
 	'''
 	Extract the playlist info
 	Args:
@@ -31,7 +31,7 @@ def fetch_tracks_from_playlist(url, sp):
 	Returns:
 		List of info of each track
 	'''
-	playlist_id = re.search(r'/playlist/(\w+)', url).group(1)
+	playlist_id = re.search(r'/playlist/(\w+)', playlist_url).group(1)
 	results = sp.playlist_tracks(playlist_id)
 	return results['items'] if 'items' in results else []
 
@@ -76,15 +76,17 @@ def spotify_query(url):
 	queries = []
 	try:
 		tracks = get_tracks(url, sp)
+			
+		for track in tracks:
+			track_name = track["track"]["name"]
+			artist_uri = track["track"]["artists"][0]["uri"]
+			artist_info = sp.artist(artist_uri)
+			artist_name = artist_info["name"]
+			query = f"{track_name} {artist_name} official song"
+			queries.append(query)
+
 	except ValueError as e:
 		print(e)
-		return
-		
-	for track in tracks:
-		track_name = track['name']
-		artist_name = track['artists'][0]['name']
-		query = f"{track_name} {artist_name} official song"
-		queries.append(query)
 
 	return queries
 

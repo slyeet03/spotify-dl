@@ -76,12 +76,22 @@ def spotify_query(url):
 	queries = []
 	try:
 		tracks = get_tracks(url, sp)
-			
+		#identifying service
+		if re.match(r'.*spotify.com/playlist/.*', url):
+			type_ = "playlist"
+		elif re.match(r'.*spotify.com/album/.*', url):
+			type_ = "album"
+
 		for track in tracks:
-			track_name = track["track"]["name"]
-			artist_uri = track["track"]["artists"][0]["uri"]
-			artist_info = sp.artist(artist_uri)
-			artist_name = artist_info["name"]
+			if type_ == "playlist": 
+				track_name = track["track"]["name"]
+				artist_uri = track["track"]["artists"][0]["uri"]
+				artist_info = sp.artist(artist_uri)
+				artist_name = artist_info["name"]
+			elif type_ == "album":
+				track_name = track["name"]
+				artist_name = track["artists"][0]["name"]
+
 			query = f"{track_name} {artist_name} official song"
 			queries.append(query)
 

@@ -21,7 +21,7 @@ def audio(url, output_path):
 			# renaming the file to have an mp3 extension
 			audio_path = f"{output_path}/{yt.title}.mp3"
 			os.rename(audio_file, audio_path)
-			print("Audio downloaded successfully")
+			print("Audio downloaded successfully\n")
 		else:
 			print("No audio stream available for the given URL.")
 

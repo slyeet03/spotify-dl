@@ -20,7 +20,7 @@ def spotify_to_youtube(query):
 			first_result = results['result'][0] # fecthing the first result
 			title = first_result['title']
 			youtube_link = first_result['link']
-			print("Title:", title)
+			print("Title:", title, "\n")
 			return youtube_link
 		else:
 			print("No YouTube link found for the song.")

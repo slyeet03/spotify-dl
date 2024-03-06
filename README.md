@@ -9,10 +9,8 @@ A CLI agent for downloading spotify playlists/albums using their link.
 3. os
 4. time
 5. re
-6. youtubesearchpython
-7. VideoSearch
-8. Youtube
-9. spotipy
+6. youtube-search-python
+7. spotipy
 
 ### Installing
 Clone or download it from github and install all the requirements. You can install them easily by this command `pip3 install requirement.txt` or install one by one.

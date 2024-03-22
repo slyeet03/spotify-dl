@@ -1,4 +1,4 @@
-# Spotify Playlist Downloader CLI
+# Spotify-DL CLI
 
 A CLI agent for downloading spotify playlists/albums using their link.
 
